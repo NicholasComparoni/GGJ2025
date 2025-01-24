@@ -1,13 +1,14 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
 [RequireComponent(typeof(SphereCollider))]
 public class Pickup : MonoBehaviour
 {
-    [FormerlySerializedAs("_statTarget")]
     [Header("Stats Modifiers")]
     [SerializeField] private Stat _target;
     [SerializeField] private float _amount;
+    
+    [Header("Type")] 
+    [SerializeField] private bool _isWeapon;
     
     private SphereCollider _collider;
     
@@ -24,7 +25,26 @@ public class Pickup : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (_isWeapon)
+        {
+            PickupWeapon(other);
+            return;
+        }
+        PickupItem(other);
+    }
+
+    private void PickupWeapon(Collider coll)
+    {
+        if (coll.gameObject.CompareTag("Player"))
+        {
+            //Do weapon stuff
+            Destroy(gameObject);
+        }
+    }
+
+    private void PickupItem(Collider coll)
+    {
+        if (coll.gameObject.CompareTag("Player"))
         {
             //UpdateStats(_statTarget, _statValue)
             Destroy(gameObject);
