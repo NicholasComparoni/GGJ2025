@@ -1,8 +1,14 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(SphereCollider))]
 public class Pickup : MonoBehaviour
 {
+    [FormerlySerializedAs("_statTarget")]
+    [Header("Stats Modifiers")]
+    [SerializeField] private Stat _target;
+    [SerializeField] private float _amount;
+    
     private SphereCollider _collider;
     
     private void Awake()
@@ -20,7 +26,7 @@ public class Pickup : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            //Do stuffs on player script
+            //UpdateStats(_statTarget, _statValue)
             Destroy(gameObject);
         }
     }
