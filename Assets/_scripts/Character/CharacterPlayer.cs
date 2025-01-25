@@ -16,7 +16,7 @@ public class CharacterPlayer : Character
     {
         _manager = new(this);
         _rb = GetComponent<Rigidbody>();
-        _bodyCollisionIdentifier = GetComponent<Collider>();
+        _bodyCollisionIdentifier = GetComponent<CapsuleCollider>();
         _eyesCamera = GetComponentInChildren<Camera>();
         
         Cursor.visible = true;
