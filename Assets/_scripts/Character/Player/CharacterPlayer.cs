@@ -1,38 +1,75 @@
+using System;
+using System.Numerics;
+using Unity.Mathematics;
 using UnityEngine;
+using Quaternion = UnityEngine.Quaternion;
+using Vector3 = UnityEngine.Vector3;
+
 
 public class CharacterPlayer : Character
 {
     private InputManager _manager;
     private Camera _eyesCamera;
-    private float _xSensibility;
-    private float _ySensibility;
+    private float YRotation;
+    [Header("Mouse Sensibility")]
+    public float xSens;
+    public float ySens;
+    [Header("AmmoQuantity")] 
+    public int ammo;
+    public int maxAmmoQuantity;
+    
+    
     
     private void Start()
     {
         _manager = new(this);
+        _rb = GetComponent<Rigidbody>();
+        _bodyCollisionIdentifier = GetComponent<CapsuleCollider>();
         _eyesCamera = GetComponentInChildren<Camera>();
         
+        Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void FixedUpdate()
     {
         _manager.UpdateMovement();
+    }
+
+    private void Update()
+    {
         _manager.UpdateCameraRotation();
+
     }
 
     public void Movement(float vertical, float horizontal)
     {
-        Vector3 direction = new Vector3(horizontal, 0, vertical);
-        this.transform.position += (Time.deltaTime * _movementSpeed )* direction;
+        Vector3 direction = transform.forward * vertical + transform.right * horizontal;
+
+        direction = direction.normalized;
+
+        transform.position += (Time.deltaTime * _movementSpeed) * direction;
     }
 
     public void RotateCamera(Vector3 rotation)
     {
-        var clampedYRotation = Mathf.Clamp(rotation.x, -90f, 90f);
-        var clampedXRotation = Mathf.Clamp(rotation.x, -90f, 90f);
-        _eyesCamera.transform.rotation = Quaternion.Euler(-rotation.y, rotation.x ,0 );
+        YRotation = Mathf.Clamp(YRotation + rotation.y, -80f, 45f);
+        
+        _eyesCamera.transform.localRotation = Quaternion.Euler(-YRotation, 0 ,0);
+        transform.Rotate(transform.up ,rotation.x);
+
     }
 
-    //private void UpdateStats(enum StatType, float value)
+    private void UpdateStats(Stat type, float value)
+    {
+        switch (type)
+        {
+            case Stat.HEALTH:
+                _health += (int)value;
+                break;
+            case Stat.AMMO:
+                ammo += (int)value;
+                break;
+        }
+    }
 }

@@ -18,13 +18,17 @@ public class InputManager
         _vertical = Input.GetAxis("Vertical");
         if (_vertical != 0 || _horizontal != 0)
         {
-            _player.Movement(_vertical, _horizontal);
+             _player.Movement(_vertical, _horizontal);
         }
     }
 
     public void UpdateCameraRotation()
     {
-        var mouseMovement = Input.mousePosition;
-        _player.RotateCamera(mouseMovement);
+        float mouseX = Input.GetAxis("Mouse X") * _player.xSens * Time.deltaTime;
+        float mouseY = Input.GetAxis("Mouse Y") * _player.ySens * Time.deltaTime;
+        
+        Vector3 currentRotation = new Vector3(mouseX, mouseY, 0);
+
+        _player.RotateCamera(currentRotation);
     }
 }

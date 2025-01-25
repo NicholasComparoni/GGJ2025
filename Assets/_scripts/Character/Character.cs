@@ -5,8 +5,11 @@ public class Character : MonoBehaviour
 {
     [Header("Character")]
     [SerializeField] protected int _health;
-    [SerializeField] protected int _movementSpeed;
-    [SerializeField] protected int _fireRate;
+    [SerializeField] protected int _maxHealth;
+    [SerializeField] protected float _movementSpeed;
+    [SerializeField] protected float _fireRate;
+    [SerializeField] protected int _dmg;
+    [SerializeField] protected Bullet _bulletPrefab;
     //References
     protected Rigidbody _rb;
     protected CapsuleCollider _bodyCollisionIdentifier;
