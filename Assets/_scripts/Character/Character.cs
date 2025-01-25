@@ -1,14 +1,16 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(Rigidbody), typeof(CapsuleCollider))]
 public class Character : MonoBehaviour
 {
-    [Header("Character")]
+    [Header("Character Stats")]
     [SerializeField] protected int _health;
     [SerializeField] protected int _maxHealth;
     [SerializeField] protected float _movementSpeed;
     [SerializeField] protected float _fireRate;
-    [SerializeField] protected int _dmg;
+    [SerializeField] protected int _atkDamage;
+    [Header("Prefabs")]
     [SerializeField] protected Bullet _bulletPrefab;
     //References
     protected Rigidbody _rb;

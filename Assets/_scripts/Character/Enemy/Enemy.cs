@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -5,10 +6,11 @@ using UnityEngine.AI;
 public class Enemy : Character
 {
     [Header("Agent")] 
-    [SerializeField] private float _atkRange;
-    [SerializeField] private float _atkDamage;
     [SerializeField] private float _stopDistance;
     [SerializeField] private float _acceleration;
+    [Header("Enemy")]
+    [SerializeField] private float _chaseDistance;
+    [SerializeField] private float _blindChaseTime = 1f;
     
     private NavMeshAgent _agent;
 
@@ -21,17 +23,41 @@ public class Enemy : Character
         _agent.speed = _movementSpeed;
         _agent.stoppingDistance = _stopDistance;
         _agent.acceleration = _acceleration;
+
+        StartCoroutine(ChasePlayer());
     }
 
-    private void Update()
+    private IEnumerator ChasePlayer()
     {
-        ChasePlayer();
-    }
-
-    private void ChasePlayer()
-    {
+        float timer = _blindChaseTime +0.1f;
         Transform player = GameObject.FindGameObjectWithTag("Player").transform;
-        _agent.SetDestination(player.position);
-        transform.LookAt(player.position);
+        while (true)
+        {
+            if (!CanSeePlayer())
+            {
+                timer += Time.deltaTime;
+            }
+            else
+            {
+                timer = 0;
+            }
+            
+            if (timer < _blindChaseTime)
+            {
+                _agent.SetDestination(player.position);
+                transform.LookAt(player.position);   
+            }
+            yield return null;
+        }
+    }
+
+    private bool CanSeePlayer()
+    {
+        Ray ray = new Ray(transform.position, (Player.instance.transform.position - transform.position).normalized);
+        if (Physics.Raycast(ray, out RaycastHit hit, _chaseDistance) && hit.transform.gameObject.CompareTag("Player"))
+        {
+            return true;
+        }
+        return false;
     }
 }

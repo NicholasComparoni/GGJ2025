@@ -77,7 +77,7 @@ public class Player : Character
     public void Shoot()
     {
         var instanceOfBullet =Instantiate(_bulletPrefab,_bulletSpawnPoint.transform.position, Quaternion.identity);
-        instanceOfBullet.damage = _dmg;
+        instanceOfBullet.damage = _atkDamage;
         instanceOfBullet.direction = _eyesCamera.transform.forward;
         instanceOfBullet.transform.rotation = _eyesCamera.transform.rotation;
         
