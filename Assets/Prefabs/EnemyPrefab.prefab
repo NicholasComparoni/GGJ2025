@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 5988847914693184570}
   m_Layer: 0
   m_Name: EnemyPrefab
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -50,8 +50,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health: 10
+  _maxHealth: 0
   _movementSpeed: 10
   _fireRate: 10
+  _dmg: 0
+  _bulletPrefab: {fileID: 0}
   _atkRange: 0
   _atkDamage: 0
   _stopDistance: 5
