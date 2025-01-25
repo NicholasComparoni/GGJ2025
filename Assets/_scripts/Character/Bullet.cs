@@ -1,8 +1,4 @@
-﻿using System;
-using Unity.VisualScripting;
-using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UIElements;
+﻿using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
@@ -30,13 +26,12 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag != "Player")
+        if (!other.gameObject.CompareTag("Player"))
         {
             if (other.gameObject.GetComponent<Character>())
             {
                 other.gameObject.GetComponent<Character>().OnHit(damage);
             }
-
             Destroy(gameObject);
         }
     }

@@ -1,6 +1,3 @@
-using System;
-using System.Numerics;
-using Unity.Mathematics;
 using UnityEngine;
 using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
