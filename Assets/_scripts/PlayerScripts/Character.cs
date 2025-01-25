@@ -7,4 +7,6 @@ public class Character : MonoBehaviour
     [SerializeField] public int fireRate;
     [SerializeField] public Rigidbody _rb;
     [SerializeField] protected Collider _bodyCollisionIdentifier;
+    [SerializeField] protected float _attackDmg;
+    [SerializeField] protected float _attackRange;
 }
