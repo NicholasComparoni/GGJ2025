@@ -1,3 +1,4 @@
+using System;
 using System.Numerics;
 using Unity.Mathematics;
 using UnityEngine;
@@ -26,20 +27,26 @@ public class CharacterPlayer : Character
     private void FixedUpdate()
     {
         _manager.UpdateMovement();
+    }
+
+    private void Update()
+    {
         _manager.UpdateCameraRotation();
+
     }
 
     public void Movement(float vertical, float horizontal)
     {
-        Vector3 direction = new Vector3(horizontal, 0, vertical);
-        transform.position += (Time.deltaTime * _movementSpeed )* direction;
+        Vector3 direction = transform.forward * vertical + transform.right * horizontal;
+
+        direction = direction.normalized;
+
+        transform.position += (Time.deltaTime * _movementSpeed) * direction;
     }
 
     public void RotateCamera(Vector3 rotation)
     {
         YRotation = Mathf.Clamp(YRotation + rotation.y, -80f, 45f);
-
-        
         
         _eyesCamera.transform.localRotation = Quaternion.Euler(-YRotation, 0 ,0);
         transform.Rotate(transform.up ,rotation.x);
