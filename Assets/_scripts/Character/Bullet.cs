@@ -14,7 +14,7 @@ public class Bullet : MonoBehaviour
 
     private void Start()
     {
-        Destroy(this, lifeTime);
+        Destroy(gameObject, lifeTime);
     }
 
     private void Update()
