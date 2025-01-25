@@ -70,6 +70,7 @@ public class CharacterPlayer : Character
         instanceOfBullet.damage = _dmg;
         instanceOfBullet.direction = _eyesCamera.transform.forward;
         instanceOfBullet.transform.rotation = _eyesCamera.transform.rotation;
+        
     }
 
     private void UpdateStats(Stat type, float value)

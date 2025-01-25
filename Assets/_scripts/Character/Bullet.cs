@@ -1,4 +1,5 @@
 ﻿using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
@@ -8,6 +9,13 @@ public class Bullet : MonoBehaviour
     public float speed;
     public int damage;
     public Vector3 direction;
+    [SerializeField] private float lifeTime;
+
+
+    private void Start()
+    {
+        Destroy(this, lifeTime);
+    }
 
     private void Update()
     {
@@ -22,11 +30,14 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.GetComponent<Character>() && other.gameObject.tag == "Enemy")
+        if (other.gameObject.tag != "Player")
         {
-           other.gameObject.GetComponent<Character>().OnHit(damage);
-           
+            if (other.gameObject.GetComponent<Character>())
+            {
+                other.gameObject.GetComponent<Character>().OnHit(damage);
+            }
+
+            Destroy(gameObject);
         }
-        Destroy(gameObject);
     }
 }
