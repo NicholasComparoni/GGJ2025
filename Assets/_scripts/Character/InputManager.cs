@@ -6,7 +6,7 @@ public class InputManager
     private CharacterPlayer _player;
     private float _horizontal;
     private float _vertical;
-
+    private Vector3 currentRotation;
     public InputManager(CharacterPlayer player)
     {
         _player = player;
@@ -27,8 +27,16 @@ public class InputManager
         float mouseX = Input.GetAxis("Mouse X") * _player.xSens * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * _player.ySens * Time.deltaTime;
         
-        Vector3 currentRotation = new Vector3(mouseX, mouseY, 0);
+        currentRotation = new Vector3(mouseX, mouseY, 0);
 
         _player.RotateCamera(currentRotation);
+    }
+
+    public void CallShoot()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            _player.Shoot();
+        }
     }
 }
