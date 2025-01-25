@@ -10,9 +10,16 @@ public class CharacterPlayer : Character
 {
     private InputManager _manager;
     private Camera _eyesCamera;
+    private float YRotation;
+    [Header("Mouse Sensibility")]
     public float xSens;
     public float ySens;
-    private float YRotation;
+    [Header("AmmoQuantity")] 
+    public int ammo;
+    public int maxAmmoQuantity;
+    
+    
+    
     private void Start()
     {
         _manager = new(this);
@@ -53,5 +60,16 @@ public class CharacterPlayer : Character
 
     }
 
-    //private void UpdateStats(enum StatType, float value)
+    private void UpdateStats(Stat type, float value)
+    {
+        switch (type)
+        {
+            case Stat.HEALTH:
+                _health += (int)value;
+                break;
+            case Stat.AMMO:
+                ammo += (int)value;
+                break;
+        }
+    }
 }
