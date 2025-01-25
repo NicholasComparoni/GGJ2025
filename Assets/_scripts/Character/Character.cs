@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody), typeof(Collider))]
+[RequireComponent(typeof(Rigidbody), typeof(CapsuleCollider))]
 public class Character : MonoBehaviour
 {
     [Header("Stats")]
@@ -9,11 +9,11 @@ public class Character : MonoBehaviour
     [SerializeField] protected int _fireRate;
     //References
     protected Rigidbody _rb;
-    protected Collider _bodyCollisionIdentifier;
+    protected CapsuleCollider _bodyCollisionIdentifier;
 
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
-        _bodyCollisionIdentifier = GetComponent<Collider>();
+        _bodyCollisionIdentifier = GetComponent<CapsuleCollider>();
     }
 }

@@ -10,8 +10,6 @@ public class CharacterPlayer : Character
     private void Start()
     {
         _manager = new(this);
-        _rb = GetComponent<Rigidbody>();
-        _bodyCollisionIdentifier = GetComponent<Collider>();
         _eyesCamera = GetComponentInChildren<Camera>();
         
         Cursor.lockState = CursorLockMode.Locked;
