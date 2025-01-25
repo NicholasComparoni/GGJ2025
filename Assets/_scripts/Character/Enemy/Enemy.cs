@@ -67,7 +67,7 @@ public class Enemy : Character
         base.OnHit(damage);
         if (_health <= 0)
         {
-            Destroy(gameObject);
+            Die();
         }
     }
 }
