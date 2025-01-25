@@ -3,7 +3,7 @@
 [RequireComponent(typeof(Rigidbody), typeof(CapsuleCollider))]
 public class Character : MonoBehaviour
 {
-    [Header("Stats")]
+    [Header("Character")]
     [SerializeField] protected int _health;
     [SerializeField] protected int _movementSpeed;
     [SerializeField] protected int _fireRate;
