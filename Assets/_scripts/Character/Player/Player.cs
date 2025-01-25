@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using Quaternion = UnityEngine.Quaternion;
@@ -20,7 +21,19 @@ public class Player : Character
     Coroutine shootCoroutine = null;
 
     public static Player instance;
+    public static event Action<int> HealthChanged;
 
+    public override int Health
+    {
+        set
+        {
+            base.Health = value;
+            HealthChanged?.Invoke(value);
+        }
+    }
+
+    // public int Health => _health;
+    public int MaxHealth => _maxHealth;
     private void Awake()
     {
         if (instance != null)
@@ -52,6 +65,10 @@ public class Player : Character
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            OnHit(1);
+        }
         _manager.UpdateCameraRotation();
         _manager.CallShoot();
     }
@@ -110,11 +127,16 @@ public class Player : Character
         switch (type)
         {
             case Stat.HEALTH:
-                _health += (int)value;
+                Health += (int)value;
                 break;
             case Stat.AMMO:
                 ammo += (int)value;
                 break;
         }
+    }
+
+    public override void OnHit(int damage)
+    {
+         base.OnHit(damage);
     }
 }
