@@ -20,6 +20,7 @@ public class Enemy : Character
     }
     private void Start()
     {
+        base.Start();
         _agent.speed = _movementSpeed;
         _agent.stoppingDistance = _stopDistance;
         _agent.acceleration = _acceleration;
@@ -59,5 +60,14 @@ public class Enemy : Character
             return true;
         }
         return false;
+    }
+
+    public override void OnHit(int damage)
+    {
+        base.OnHit(damage);
+        if (_health <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }

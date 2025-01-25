@@ -50,7 +50,7 @@ MonoBehaviour:
   speed: 5
   damage: 0
   direction: {x: 0, y: 0, z: 0}
-  lifeTime: 5
+  lifeTime: 2
 --- !u!33 &6544336466852610485
 MeshFilter:
   m_ObjectHideFlags: 0

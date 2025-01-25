@@ -136,15 +136,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7876821f5712274bba77ea33f9d245d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 10
-  _maxHealth: 0
-  _movementSpeed: 10
+  _maxHealth: 3
+  _movementSpeed: 3
   _fireRate: 10
-  _atkDamage: 0
+  _atkDamage: 1
   _bulletPrefab: {fileID: 0}
   _stopDistance: 5
   _acceleration: 20
   _chaseDistance: 10
+  _blindChaseTime: 1
 --- !u!195 &5443779584733727699
 NavMeshAgent:
   m_ObjectHideFlags: 0
