@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent(typeof(NavMeshAgent), typeof(Animator))]
 public class Enemy : Character
 {
     [Header("Agent")] 
@@ -13,10 +13,12 @@ public class Enemy : Character
     [SerializeField] private float _blindChaseTime = 1f;
     
     private NavMeshAgent _agent;
+    private Animator _animator;
 
     private void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();
+        _animator = GetComponent<Animator>();
     }
     private void Start()
     {
@@ -34,6 +36,7 @@ public class Enemy : Character
         Transform player = GameObject.FindGameObjectWithTag("Player").transform;
         while (true)
         {
+            transform.LookAt(player.position);   
             if (!CanSeePlayer())
             {
                 timer += Time.deltaTime;
@@ -46,7 +49,6 @@ public class Enemy : Character
             if (timer < _blindChaseTime)
             {
                 _agent.SetDestination(player.position);
-                transform.LookAt(player.position);   
             }
             yield return null;
         }
@@ -57,8 +59,10 @@ public class Enemy : Character
         Ray ray = new Ray(transform.position, (Player.instance.transform.position - transform.position).normalized);
         if (Physics.Raycast(ray, out RaycastHit hit, _chaseDistance) && hit.transform.gameObject.CompareTag("Player"))
         {
+            _animator.SetBool("Active", true);
             return true;
         }
+        _animator.SetBool("Active", false);
         return false;
     }
 
