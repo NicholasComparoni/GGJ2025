@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class InputManager
 {
-    private CharacterPlayer _player;
+    private Player _player;
     private float _horizontal;
     private float _vertical;
-
-    public InputManager(CharacterPlayer player)
+    private Vector3 currentRotation;
+    public InputManager(Player player)
     {
         _player = player;
     }
@@ -18,13 +18,25 @@ public class InputManager
         _vertical = Input.GetAxis("Vertical");
         if (_vertical != 0 || _horizontal != 0)
         {
-            _player.Movement(_vertical, _horizontal);
+             _player.Movement(_vertical, _horizontal);
         }
     }
 
     public void UpdateCameraRotation()
     {
-        var mouseMovement = Input.mousePosition;
-        _player.RotateCamera(mouseMovement);
+        float mouseX = Input.GetAxis("Mouse X") * _player.xSens * Time.deltaTime;
+        float mouseY = Input.GetAxis("Mouse Y") * _player.ySens * Time.deltaTime;
+        
+        currentRotation = new Vector3(mouseX, mouseY, 0);
+
+        _player.RotateCamera(currentRotation);
+    }
+
+    public void CallShoot()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            _player.Shoot();
+        }
     }
 }

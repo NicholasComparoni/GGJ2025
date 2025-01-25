@@ -1,15 +1,14 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class Enemy : Character
 {
-    [Header("Enemy Stats")] 
+    [Header("Agent")] 
     [SerializeField] private float _atkRange;
     [SerializeField] private float _atkDamage;
     [SerializeField] private float _stopDistance;
+    [SerializeField] private float _acceleration;
     
     private NavMeshAgent _agent;
 
@@ -21,6 +20,7 @@ public class Enemy : Character
     {
         _agent.speed = _movementSpeed;
         _agent.stoppingDistance = _stopDistance;
+        _agent.acceleration = _acceleration;
     }
 
     private void Update()
@@ -32,5 +32,6 @@ public class Enemy : Character
     {
         Transform player = GameObject.FindGameObjectWithTag("Player").transform;
         _agent.SetDestination(player.position);
+        transform.LookAt(player.position);
     }
 }
