@@ -19,4 +19,10 @@ public class Character : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
         _bodyCollisionIdentifier = GetComponent<CapsuleCollider>();
     }
+
+    public void OnHit(int damage)
+    {
+        _health -= damage;
+        Debug.Log("Preso " + damage + " da bullet, mi rimane " + _health);
+    }
 }

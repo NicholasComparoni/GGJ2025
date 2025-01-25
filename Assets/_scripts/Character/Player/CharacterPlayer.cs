@@ -18,6 +18,8 @@ public class CharacterPlayer : Character
     public int ammo;
     public int maxAmmoQuantity;
     
+    private MuzzlePosition _bulletSpawnPoint;
+    private Vector3 direction;
     
     
     private void Start()
@@ -26,6 +28,7 @@ public class CharacterPlayer : Character
         _rb = GetComponent<Rigidbody>();
         _bodyCollisionIdentifier = GetComponent<CapsuleCollider>();
         _eyesCamera = GetComponentInChildren<Camera>();
+        _bulletSpawnPoint = GetComponentInChildren<MuzzlePosition>();
         
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Locked;
@@ -39,12 +42,13 @@ public class CharacterPlayer : Character
     private void Update()
     {
         _manager.UpdateCameraRotation();
+        _manager.CallShoot();
 
     }
 
     public void Movement(float vertical, float horizontal)
     {
-        Vector3 direction = transform.forward * vertical + transform.right * horizontal;
+        direction = transform.forward * vertical + transform.right * horizontal;
 
         direction = direction.normalized;
 
@@ -58,6 +62,14 @@ public class CharacterPlayer : Character
         _eyesCamera.transform.localRotation = Quaternion.Euler(-YRotation, 0 ,0);
         transform.Rotate(transform.up ,rotation.x);
 
+    }
+
+    public void Shoot()
+    {
+        var instanceOfBullet =Instantiate(_bulletPrefab,_bulletSpawnPoint.transform.position, Quaternion.identity);
+        instanceOfBullet.damage = _dmg;
+        instanceOfBullet.direction = _eyesCamera.transform.forward;
+        instanceOfBullet.transform.rotation = _eyesCamera.transform.rotation;
     }
 
     private void UpdateStats(Stat type, float value)
