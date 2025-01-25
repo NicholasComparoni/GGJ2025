@@ -1,9 +1,10 @@
+using System;
 using UnityEngine;
 using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
 
 
-public class CharacterPlayer : Character
+public class Player : Character
 {
     private InputManager _manager;
     private Camera _eyesCamera;
@@ -18,7 +19,19 @@ public class CharacterPlayer : Character
     private MuzzlePosition _bulletSpawnPoint;
     private Vector3 direction;
     
-    
+    public static Player instance;
+
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Debug.LogWarning("More than one instance of Player!");
+            return;
+        }
+
+        instance = this;
+    }
+
     private void Start()
     {
         _manager = new(this);

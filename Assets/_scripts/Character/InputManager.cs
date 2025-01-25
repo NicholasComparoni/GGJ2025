@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class InputManager
 {
-    private CharacterPlayer _player;
+    private Player _player;
     private float _horizontal;
     private float _vertical;
     private Vector3 currentRotation;
-    public InputManager(CharacterPlayer player)
+    public InputManager(Player player)
     {
         _player = player;
     }
