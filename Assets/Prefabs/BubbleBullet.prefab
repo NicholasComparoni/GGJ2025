@@ -5247,7 +5247,7 @@ GameObject:
   - component: {fileID: 2860458511312225637}
   - component: {fileID: 2031966560464732131}
   m_Layer: 0
-  m_Name: BubbleBUllet
+  m_Name: BubbleBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
