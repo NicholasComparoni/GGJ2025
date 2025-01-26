@@ -40,6 +40,9 @@ public class Character : MonoBehaviour
     public virtual void OnHit(int damage)
     {
         _health -= damage;
+        var feedback = FindFirstObjectByType<PickupFeedbackHandler>();
+        feedback.ShowFeedback(FindFirstObjectByType<damageFeedbackCall>().gameObject);
+        
         if (this is Player)
         {
             Player.HealthChanged?.Invoke(_health);
