@@ -13,10 +13,10 @@ public class Enemy : Character
     [SerializeField] private bool isWall;
 
     [SerializeField] private Transform _bulletSpawnPoint;
-    
+
     [SerializeField] protected GameObject[] OldGuys = new GameObject[3];
 
-    
+
     private NavMeshAgent _agent;
     private Animator _animator;
     private float elapsedTime;
@@ -39,7 +39,8 @@ public class Enemy : Character
 
     public void Shoot()
     {
-        if (elapsedTime >= _fireRate && _atkRange >= Vector3.Distance(transform.position, Player.instance.transform.position))
+        if (elapsedTime >= _fireRate &&
+            _atkRange >= Vector3.Distance(transform.position, Player.instance.transform.position))
         {
             _animator.SetTrigger("Attack");
             var instanceOfBullet =
@@ -69,16 +70,19 @@ public class Enemy : Character
             yield return null;
         }
     }
-    
+
     private IEnumerator ChasePlayer()
     {
-        float chaseTimer = _blindChaseTime +0.1f;
+        float chaseTimer = _blindChaseTime + 0.1f;
         Transform player = GameObject.FindGameObjectWithTag("Player").transform;
         if (!isWall)
         {
             while (true)
             {
-                transform.LookAt(player.position);
+                var direction = (player.position - transform.position).normalized;
+                direction.y = 0;
+                transform.forward = direction;
+                // transform.LookAt(player.position);
                 if (!CanSeePlayer())
                 {
                     chaseTimer += Time.deltaTime;
@@ -117,10 +121,14 @@ public class Enemy : Character
         base.OnHit(damage);
         if (_health <= 0)
         {
-            Vector3 OffSet = new Vector3(transform.position.x, transform.position.y +1 , transform.position.z);
-            int randomNumber = UnityEngine.Random.Range(0, OldGuys.Length);
-            var oldGuy =Instantiate(OldGuys[randomNumber], OffSet, Quaternion.identity, parent: null);
-            oldGuy.transform.localScale = new Vector3(2.5f, 2.5f, 2.5f);
+            if (!isWall)
+            {
+                Vector3 OffSet = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
+                int randomNumber = UnityEngine.Random.Range(0, OldGuys.Length);
+                var oldGuy = Instantiate(OldGuys[randomNumber], OffSet, Quaternion.identity, parent: null);
+                oldGuy.transform.localScale = new Vector3(4f, 4f, 4f);
+            }
+
             Die();
         }
     }
