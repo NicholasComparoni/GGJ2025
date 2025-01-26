@@ -39,7 +39,7 @@ public class Character : MonoBehaviour
         Health -= damage;
         Debug.Log("Preso " + damage + " da bullet, mi rimane " + _health);
     }
-
+    
     public virtual void Die()
     {
         //Do stuffs
