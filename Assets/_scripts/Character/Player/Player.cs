@@ -22,16 +22,9 @@ public class Player : Character
     Coroutine shootCoroutine = null;
 
     public static Player instance;
-    public static event Action<int> HealthChanged;
-
-    public override int Health
-    {
-        set
-        {
-            base.Health = value;
-            HealthChanged?.Invoke(value);
-        }
-    }
+    public static Action<int> HealthChanged;
+    
+    
 
     // public int Health => _health;
     public int MaxHealth => _maxHealth;
