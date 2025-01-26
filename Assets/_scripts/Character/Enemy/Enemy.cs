@@ -1,17 +1,17 @@
 using System.Collections;
+using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent), typeof(Animator))]
 public class Enemy : Character
 {
-    [Header("Agent")] 
-    [SerializeField] private float _stopDistance;
+    [Header("Agent")] [SerializeField] private float _stopDistance;
     [SerializeField] private float _acceleration;
-    [Header("Enemy")]
-    [SerializeField] private float _chaseDistance;
+    [Header("Enemy")] [SerializeField] private float _chaseDistance;
     [SerializeField] private float _blindChaseTime = 1f;
-    
+    [SerializeField] private bool isWall;
+
     private NavMeshAgent _agent;
     private Animator _animator;
 
@@ -20,6 +20,7 @@ public class Enemy : Character
         _agent = GetComponent<NavMeshAgent>();
         _animator = GetComponent<Animator>();
     }
+
     private void Start()
     {
         base.Start();
@@ -32,25 +33,29 @@ public class Enemy : Character
 
     private IEnumerator ChasePlayer()
     {
-        float timer = _blindChaseTime +0.1f;
+        float timer = _blindChaseTime + 0.1f;
         Transform player = GameObject.FindGameObjectWithTag("Player").transform;
-        while (true)
+        if (!isWall)
         {
-            transform.LookAt(player.position);   
-            if (!CanSeePlayer())
+            while (true)
             {
-                timer += Time.deltaTime;
+                transform.LookAt(player.position);
+                if (!CanSeePlayer())
+                {
+                    timer += Time.deltaTime;
+                }
+                else
+                {
+                    timer = 0;
+                }
+
+                if (timer < _blindChaseTime)
+                {
+                    _agent.SetDestination(player.position);
+                }
+
+                yield return null;
             }
-            else
-            {
-                timer = 0;
-            }
-            
-            if (timer < _blindChaseTime)
-            {
-                _agent.SetDestination(player.position);
-            }
-            yield return null;
         }
     }
 
@@ -62,6 +67,7 @@ public class Enemy : Character
             _animator.SetBool("Active", true);
             return true;
         }
+
         _animator.SetBool("Active", false);
         return false;
     }
