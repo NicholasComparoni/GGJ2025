@@ -64,6 +64,7 @@ public class Pickup : MonoBehaviour
         if (coll.gameObject.CompareTag("Player"))
         {
             var feedbackHandler = coll.GetComponent<PickupFeedbackHandler>();
+            Player.instance.UpdateStats(_target, _amount);
             if (feedbackHandler != null)
             {
                 if (_target == Stat.HEALTH)
