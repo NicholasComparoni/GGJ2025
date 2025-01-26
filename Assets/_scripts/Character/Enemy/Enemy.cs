@@ -12,8 +12,11 @@ public class Enemy : Character
     [SerializeField] private float _blindChaseTime = 1f;
     [SerializeField] private bool isWall;
 
+    [SerializeField] private Transform _bulletSpawnPoint;
+    
     private NavMeshAgent _agent;
     private Animator _animator;
+    private float elapsedTime;
 
     private void Awake()
     {
@@ -31,9 +34,42 @@ public class Enemy : Character
         StartCoroutine(ChasePlayer());
     }
 
+    public void Shoot()
+    {
+        if (elapsedTime >= _fireRate)
+        {
+            _animator.SetTrigger("Attack");
+            var instanceOfBullet =
+                Instantiate(_bulletPrefab, _bulletSpawnPoint.position, Quaternion.identity);
+            instanceOfBullet.damage = _atkDamage;
+            instanceOfBullet.direction = transform.forward;
+            instanceOfBullet.transform.rotation = transform.rotation;
+            elapsedTime = 0;
+        }
+
+        if (elapsedTime == 0)
+        {
+            StartCoroutine(ResetFireTime());
+        }
+    }
+
+    private IEnumerator ResetFireTime()
+    {
+        while (true)
+        {
+            elapsedTime += Time.deltaTime;
+            if (elapsedTime >= _fireRate)
+            {
+                break;
+            }
+
+            yield return null;
+        }
+    }
+    
     private IEnumerator ChasePlayer()
     {
-        float timer = _blindChaseTime + 0.1f;
+        float chaseTimer = _blindChaseTime +0.1f;
         Transform player = GameObject.FindGameObjectWithTag("Player").transform;
         if (!isWall)
         {
@@ -42,14 +78,15 @@ public class Enemy : Character
                 transform.LookAt(player.position);
                 if (!CanSeePlayer())
                 {
-                    timer += Time.deltaTime;
+                    chaseTimer += Time.deltaTime;
                 }
                 else
                 {
-                    timer = 0;
+                    chaseTimer = 0;
+                    Shoot();
                 }
 
-                if (timer < _blindChaseTime)
+                if (chaseTimer < _blindChaseTime)
                 {
                     _agent.SetDestination(player.position);
                 }
@@ -79,5 +116,10 @@ public class Enemy : Character
         {
             Die();
         }
+    }
+
+    private void Attack()
+    {
+        Shoot();
     }
 }

@@ -9,6 +9,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 508989970831382541, guid: edb67bf3721c0bd4fab60bb612dc6eb6, type: 3}
+      propertyPath: _fireRate
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 508989970831382541, guid: edb67bf3721c0bd4fab60bb612dc6eb6, type: 3}
+      propertyPath: _bulletPrefab
+      value: 
+      objectReference: {fileID: 315026641279591722, guid: 07d6ec17879cf304f9481334e505617b, type: 3}
+    - target: {fileID: 508989970831382541, guid: edb67bf3721c0bd4fab60bb612dc6eb6, type: 3}
       propertyPath: _chaseDistance
       value: 5
       objectReference: {fileID: 0}
