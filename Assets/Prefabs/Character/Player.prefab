@@ -57,8 +57,8 @@ MonoBehaviour:
   _bulletPrefab: {fileID: 2860458511312225637, guid: e2a9c0e7479ef6b46bd48f51cd8e9837, type: 3}
   xSens: 500
   ySens: 500
-  ammo: 0
-  maxAmmoQuantity: 0
+  ammo: 5
+  maxAmmoQuantity: 10
   elapsedTime: 0
   audioSource: {fileID: 0}
   audioClip: {fileID: 0}

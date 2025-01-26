@@ -156,7 +156,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: 0
-  _amount: 0
+  _amount: 10
   _posDeltaY: 0.5
   _posSpeed: 0.5
   _rotSpeed: 9.5

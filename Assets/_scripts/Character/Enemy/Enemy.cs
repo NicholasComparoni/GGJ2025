@@ -124,7 +124,7 @@ public class Enemy : Character
             if (!isWall)
             {
                 Vector3 OffSet = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
-                int randomNumber = UnityEngine.Random.Range(0, OldGuys.Length);
+                int randomNumber = Random.Range(0, OldGuys.Length);
                 var oldGuy = Instantiate(OldGuys[randomNumber], OffSet, Quaternion.identity, parent: null);
                 oldGuy.transform.localScale = new Vector3(4f, 4f, 4f);
             }

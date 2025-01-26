@@ -13,8 +13,9 @@ public class Player : Character
     private float YRotation;
     [Header("Mouse Sensibility")] public float xSens;
     public float ySens;
-    [Header("AmmoQuantity")] public int ammo;
-    public int maxAmmoQuantity;
+    [Header("AmmoQuantity")] 
+    public int ammo = 4;
+    public int maxAmmoQuantity = 7;
 
     private MuzzlePosition _bulletSpawnPoint;
     private Vector3 direction;
@@ -50,7 +51,9 @@ public class Player : Character
         _bodyCollisionIdentifier = GetComponent<CapsuleCollider>();
         _eyesCamera = GetComponentInChildren<Camera>();
         _bulletSpawnPoint = GetComponentInChildren<MuzzlePosition>();
-
+        
+        HealthChanged?.Invoke(_health);
+        
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -87,9 +90,10 @@ public class Player : Character
 
     public void Shoot()
     {
-        if (elapsedTime >= _fireRate)
+        if (elapsedTime >= _fireRate && ammo > 0)
         {
             PlayerCanvas.PlayAnimation("Fire");
+            UpdateStats(Stat.AMMO, -1);
             var instanceOfBullet =
                 Instantiate(_bulletPrefab, _bulletSpawnPoint.transform.position, Quaternion.identity);
             instanceOfBullet.damage = _atkDamage;
@@ -119,15 +123,25 @@ public class Player : Character
         }
     }
 
-    private void UpdateStats(Stat type, float value)
+    public void UpdateStats(Stat type, float value)
     {
         switch (type)
         {
             case Stat.HEALTH:
-                Health += (int)value;
+                _health += (int)value;
+                if (_health > _maxHealth)
+                {
+                    _health = _maxHealth;
+                }
+                HealthChanged.Invoke(_health);
                 break;
             case Stat.AMMO:
                 ammo += (int)value;
+                if (ammo > maxAmmoQuantity)
+                {
+                    ammo = maxAmmoQuantity;
+                }
+                PlayerCanvas.UpdateAmmo(ammo, maxAmmoQuantity);
                 break;
         }
     }
