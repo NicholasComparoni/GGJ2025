@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Pickup.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    path: Assets/Scenes/Main Menu.unity
+    guid: c1b041e3c622295429f413b6a72b2757
   - enabled: 1
     path: Assets/Scenes/SplashArtSlideShow.unity
     guid: e2eed163a74d4864885ed052ce48bea7
