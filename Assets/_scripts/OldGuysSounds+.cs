@@ -16,9 +16,8 @@ public class OldGuysSounds : MonoBehaviour
         audioSource.PlayOneShot(clips[randomNumber]);
         Destroy(this, 5f);
     }
-
-    // Update is called once per frame
     void Update()
     {
+        transform.LookAt(FindFirstObjectByType<Player>().transform.position);
     }
 }
