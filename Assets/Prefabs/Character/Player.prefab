@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5535144291346966422}
   - component: {fileID: 1460175920654919746}
   - component: {fileID: 5569094069252146864}
+  - component: {fileID: 426940912324875499}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -50,12 +51,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _health: 10
   _maxHealth: 10
-  _movementSpeed: 10
-  _fireRate: 2
+  _movementSpeed: 8
+  _fireRate: 0.9
   _atkDamage: 1
   _bulletPrefab: {fileID: 2860458511312225637, guid: e2a9c0e7479ef6b46bd48f51cd8e9837, type: 3}
-  xSens: 300
-  ySens: 300
+  xSens: 500
+  ySens: 500
   ammo: 0
   maxAmmoQuantity: 0
   elapsedTime: 0
@@ -208,6 +209,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &426940912324875499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3373867237845303332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66f1da1eb1f747f4a33c640f3a405bbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  feedbackDuration: 0.4
 --- !u!1 &4534629099899426232
 GameObject:
   m_ObjectHideFlags: 0
@@ -236,7 +250,7 @@ Transform:
   m_GameObject: {fileID: 4534629099899426232}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.5, z: 0.77}
+  m_LocalPosition: {x: 0, y: 0.48200035, z: 0.77}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

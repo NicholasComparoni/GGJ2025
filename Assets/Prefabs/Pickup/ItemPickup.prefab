@@ -159,3 +159,6 @@ MonoBehaviour:
   _posDeltaY: 0.5
   _posSpeed: 0.5
   _rotSpeed: 9.5
+  feedbacks: {fileID: 1274297439241779398, guid: 6caf0d431d1f5aa42af5241102d68831, type: 3}
+  _ammoFeedback: {fileID: 0}
+  _healthFeedback: {fileID: 0}
