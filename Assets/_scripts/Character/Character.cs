@@ -37,9 +37,10 @@ public class Character : MonoBehaviour
     public virtual void OnHit(int damage)
     {
         _health -= damage;
+        Health -= damage;
         Debug.Log("Preso " + damage + " da bullet, mi rimane " + _health);
     }
-    
+
     public virtual void Die()
     {
         //Do stuffs
