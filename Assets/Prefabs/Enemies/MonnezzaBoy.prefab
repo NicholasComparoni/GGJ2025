@@ -28,6 +28,22 @@ PrefabInstance:
       propertyPath: _movementSpeed
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 508989970831382541, guid: edb67bf3721c0bd4fab60bb612dc6eb6, type: 3}
+      propertyPath: OldGuys.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 508989970831382541, guid: edb67bf3721c0bd4fab60bb612dc6eb6, type: 3}
+      propertyPath: 'OldGuys.Array.data[3]'
+      value: 
+      objectReference: {fileID: 2643774311869048572, guid: d07e10dd7a5b5014a93f39cc86b46f91, type: 3}
+    - target: {fileID: 508989970831382541, guid: edb67bf3721c0bd4fab60bb612dc6eb6, type: 3}
+      propertyPath: 'OldGuys.Array.data[4]'
+      value: 
+      objectReference: {fileID: 1699539620170820373, guid: 11d05d60d6fc69447995b5a1e293ec2b, type: 3}
+    - target: {fileID: 508989970831382541, guid: edb67bf3721c0bd4fab60bb612dc6eb6, type: 3}
+      propertyPath: 'OldGuys.Array.data[5]'
+      value: 
+      objectReference: {fileID: 533035450013475023, guid: b7d90f58f70878646bf3924ef632062c, type: 3}
     - target: {fileID: 774731622463650332, guid: edb67bf3721c0bd4fab60bb612dc6eb6, type: 3}
       propertyPath: m_Size.x
       value: 4.52

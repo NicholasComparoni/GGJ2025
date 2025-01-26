@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using System.Collections;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Character : MonoBehaviour
@@ -19,6 +21,7 @@ public class Character : MonoBehaviour
 
     [Header("Prefabs")] [SerializeField] protected Bullet _bulletPrefab;
 
+
     //References
     protected Rigidbody _rb;
     protected CapsuleCollider _bodyCollisionIdentifier;
@@ -37,16 +40,18 @@ public class Character : MonoBehaviour
     public virtual void OnHit(int damage)
     {
         _health -= damage;
-        if (this is Player) 
+        if (this is Player)
         {
             Player.HealthChanged?.Invoke(_health);
         }
+
         Debug.Log("Preso " + damage + " da bullet, mi rimane " + _health);
     }
 
     public virtual void Die()
     {
         //Do stuffs
+       
         Destroy(gameObject);
     }
 }

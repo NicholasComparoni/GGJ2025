@@ -188,10 +188,15 @@ MonoBehaviour:
   _fireRate: 10
   _atkDamage: 1
   _bulletPrefab: {fileID: 0}
+  OldGuys:
+  - {fileID: 2643774311869048572, guid: d07e10dd7a5b5014a93f39cc86b46f91, type: 3}
+  - {fileID: 1699539620170820373, guid: 11d05d60d6fc69447995b5a1e293ec2b, type: 3}
+  - {fileID: 533035450013475023, guid: b7d90f58f70878646bf3924ef632062c, type: 3}
   _stopDistance: 5
   _acceleration: 20
   _chaseDistance: 10
   _blindChaseTime: 1
+  _atkRange: 0
   isWall: 0
   _bulletSpawnPoint: {fileID: 2398259677119632794}
 --- !u!195 &5443779584733727699

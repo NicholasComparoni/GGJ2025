@@ -14,6 +14,9 @@ public class Enemy : Character
 
     [SerializeField] private Transform _bulletSpawnPoint;
     
+    [SerializeField] protected GameObject[] OldGuys = new GameObject[3];
+
+    
     private NavMeshAgent _agent;
     private Animator _animator;
     private float elapsedTime;
@@ -114,6 +117,10 @@ public class Enemy : Character
         base.OnHit(damage);
         if (_health <= 0)
         {
+            Vector3 OffSet = new Vector3(transform.position.x, transform.position.y +1 , transform.position.z);
+            int randomNumber = UnityEngine.Random.Range(0, OldGuys.Length);
+            var oldGuy =Instantiate(OldGuys[randomNumber], OffSet, Quaternion.identity, parent: null);
+            oldGuy.transform.localScale = new Vector3(2.5f, 2.5f, 2.5f);
             Die();
         }
     }

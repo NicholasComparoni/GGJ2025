@@ -54,11 +54,7 @@ public class Player : Character
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Locked;
     }
-
-    private void FixedUpdate()
-    {
-
-    }
+    
 
     private void Update()
     {
