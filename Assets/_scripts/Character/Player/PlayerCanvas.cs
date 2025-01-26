@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -17,6 +18,11 @@ public class PlayerCanvas : MonoBehaviour
 
         instance = this;
         _animator = GetComponent<Animator>();
+    }
+
+    private void Start()
+    {
+        instance._ammoText.text = $"{Player.instance.ammo}/{Player.instance.maxAmmoQuantity}";
     }
 
     public static void PlayAnimation(string triggerName)

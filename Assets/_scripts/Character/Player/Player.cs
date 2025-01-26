@@ -127,11 +127,12 @@ public class Player : Character
         switch (type)
         {
             case Stat.HEALTH:
-                Health += (int)value;
+                _health += (int)value;
                 if (_health > _maxHealth)
                 {
                     _health = _maxHealth;
                 }
+                HealthChanged.Invoke(_health);
                 break;
             case Stat.AMMO:
                 ammo += (int)value;
