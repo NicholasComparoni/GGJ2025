@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody), typeof(CapsuleCollider))]
+[RequireComponent(typeof(Rigidbody))]
 public class Character : MonoBehaviour
 {
     [Header("Character Stats")] [SerializeField]
@@ -36,7 +36,7 @@ public class Character : MonoBehaviour
 
     public virtual void OnHit(int damage)
     {
-        Health -= damage;
+        _health -= damage;
         Debug.Log("Preso " + damage + " da bullet, mi rimane " + _health);
     }
     
