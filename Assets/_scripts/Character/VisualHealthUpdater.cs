@@ -8,17 +8,17 @@ public class VisualHealthUpdater : MonoBehaviour
     [FormerlySerializedAs("healthPlayer")] 
     [SerializeField] private int _healthPlayer;
     [SerializeField] private int _maxHealthPlayer;
-    [SerializeField] private RawImage _rawImageHealthFeedback;
-    [SerializeField] private Texture _fullHealthTexture;
-    [SerializeField] private Texture _halfHealthTexture;
-    [SerializeField] private Texture _lowHealthTexture;
-    [SerializeField] private Texture _singleHPLeft;
-    Texture textureToApply = null; 
+    [SerializeField] private Image _imageHealthFeedback;
+    [SerializeField] private Sprite _fullHealthTexture;
+    [SerializeField] private Sprite _halfHealthTexture;
+    [SerializeField] private Sprite _lowHealthTexture;
+    [SerializeField] private Sprite _singleHPLeft;
+    Sprite textureToApply = null; 
     private void Start()
     {
         Player.HealthChanged += OnPlayerHealthChanged;
         _maxHealthPlayer = Player.instance.MaxHealth;
-        _rawImageHealthFeedback = GetComponent<RawImage>();
+        _imageHealthFeedback = GetComponent<Image>();
     }
 
     private void OnDestroy()
@@ -48,7 +48,7 @@ public class VisualHealthUpdater : MonoBehaviour
             textureToApply = _fullHealthTexture;
         }
         
-        _rawImageHealthFeedback.texture = textureToApply;
+        _imageHealthFeedback.sprite = textureToApply;
     }
     
 }

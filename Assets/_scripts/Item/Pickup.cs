@@ -61,11 +61,15 @@ public class Pickup : MonoBehaviour
             if (feedbackHandler != null)
             {
                 if (_target == Stat.HEALTH)
+                {
                     feedbackHandler.ShowFeedback(_healthFeedback);
+                }
                 else if (_target == Stat.AMMO)
+                {
+                    PlayerCanvas.PlayAnimation("Reload");
                     feedbackHandler.ShowFeedback(_ammoFeedback);
+                }
             }
-
             Destroy(gameObject);
         }
     }

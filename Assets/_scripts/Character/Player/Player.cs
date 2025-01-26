@@ -89,6 +89,7 @@ public class Player : Character
     {
         if (elapsedTime >= _fireRate)
         {
+            PlayerCanvas.PlayAnimation("Fire");
             var instanceOfBullet =
                 Instantiate(_bulletPrefab, _bulletSpawnPoint.transform.position, Quaternion.identity);
             instanceOfBullet.damage = _atkDamage;
