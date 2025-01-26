@@ -79,7 +79,10 @@ public class Enemy : Character
         {
             while (true)
             {
-                transform.LookAt(player.position);
+                var direction = (player.position - transform.position).normalized;
+                direction.y = 0;
+                transform.forward = direction;
+                // transform.LookAt(player.position);
                 if (!CanSeePlayer())
                 {
                     chaseTimer += Time.deltaTime;
