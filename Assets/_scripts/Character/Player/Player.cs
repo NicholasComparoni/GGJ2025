@@ -22,16 +22,11 @@ public class Player : Character
     Coroutine shootCoroutine = null;
 
     public static Player instance;
-    public static event Action<int> HealthChanged;
-
-    public override int Health
-    {
-        set
-        {
-            base.Health = value;
-            HealthChanged?.Invoke(value);
-        }
-    }
+    public static Action<int> HealthChanged;
+    
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip audioClip;
+    
 
     // public int Health => _health;
     public int MaxHealth => _maxHealth;
@@ -45,6 +40,7 @@ public class Player : Character
 
         instance = this;
         elapsedTime = _fireRate;
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -61,15 +57,13 @@ public class Player : Character
 
     private void FixedUpdate()
     {
-        _manager.UpdateMovement();
+
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            OnHit(1);
-        }
+
+        _manager.UpdateMovement();
         _manager.UpdateCameraRotation();
         _manager.CallShoot();
         if (_health <= 0)
@@ -105,6 +99,7 @@ public class Player : Character
             instanceOfBullet.direction = _eyesCamera.transform.forward;
             instanceOfBullet.transform.rotation = _eyesCamera.transform.rotation;
             elapsedTime = 0;
+            audioSource.PlayOneShot(audioClip);
         }
 
         if (elapsedTime == 0)
