@@ -1,8 +1,7 @@
 using System;
 using System.Collections;
-using System.ComponentModel.Design.Serialization;
-using UnityEditor.Search;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
 
@@ -23,7 +22,19 @@ public class Player : Character
     Coroutine shootCoroutine = null;
 
     public static Player instance;
+    public static event Action<int> HealthChanged;
 
+    public override int Health
+    {
+        set
+        {
+            base.Health = value;
+            HealthChanged?.Invoke(value);
+        }
+    }
+
+    // public int Health => _health;
+    public int MaxHealth => _maxHealth;
     private void Awake()
     {
         if (instance != null)
@@ -55,8 +66,16 @@ public class Player : Character
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            OnHit(1);
+        }
         _manager.UpdateCameraRotation();
         _manager.CallShoot();
+        if (_health <= 0)
+        {
+            OnDeath();
+        }
     }
 
     public void Movement(float vertical, float horizontal)
@@ -82,7 +101,7 @@ public class Player : Character
         {
             var instanceOfBullet =
                 Instantiate(_bulletPrefab, _bulletSpawnPoint.transform.position, Quaternion.identity);
-            instanceOfBullet.damage = _dmg;
+            instanceOfBullet.damage = _atkDamage;
             instanceOfBullet.direction = _eyesCamera.transform.forward;
             instanceOfBullet.transform.rotation = _eyesCamera.transform.rotation;
             elapsedTime = 0;
@@ -113,11 +132,20 @@ public class Player : Character
         switch (type)
         {
             case Stat.HEALTH:
-                _health += (int)value;
+                Health += (int)value;
                 break;
             case Stat.AMMO:
                 ammo += (int)value;
                 break;
         }
+    }
+
+    private void OnDeath()
+    {
+        SceneManager.LoadScene("GameOver");
+    }
+    public override void OnHit(int damage)
+    {
+         base.OnHit(damage);
     }
 }

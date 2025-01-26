@@ -3,26 +3,46 @@
 [RequireComponent(typeof(Rigidbody), typeof(CapsuleCollider))]
 public class Character : MonoBehaviour
 {
-    [Header("Character")]
-    [SerializeField] protected int _health;
+    [Header("Character Stats")] [SerializeField]
+    protected int _health;
+
+    public virtual int Health
+    {
+        get { return _health; }
+        set { _health = value; }
+    }
+
     [SerializeField] protected int _maxHealth;
     [SerializeField] protected float _movementSpeed;
     [SerializeField] protected float _fireRate;
-    [SerializeField] protected int _dmg;
-    [SerializeField] protected Bullet _bulletPrefab;
+    [SerializeField] protected int _atkDamage;
+
+    [Header("Prefabs")] [SerializeField] protected Bullet _bulletPrefab;
+
     //References
     protected Rigidbody _rb;
     protected CapsuleCollider _bodyCollisionIdentifier;
 
-    private void Start()
+    private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
         _bodyCollisionIdentifier = GetComponent<CapsuleCollider>();
     }
 
-    public void OnHit(int damage)
+    protected void Start()
     {
-        _health -= damage;
+        Health = _maxHealth;
+    }
+
+    public virtual void OnHit(int damage)
+    {
+        Health -= damage;
         Debug.Log("Preso " + damage + " da bullet, mi rimane " + _health);
+    }
+    
+    public virtual void Die()
+    {
+        //Do stuffs
+        Destroy(gameObject);
     }
 }

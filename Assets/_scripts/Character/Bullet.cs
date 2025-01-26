@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour
     public int damage;
     public Vector3 direction;
     [SerializeField] private float lifeTime;
+    [SerializeField] private GameObject _bulletParticle;
 
 
     private void Start()
@@ -16,6 +17,7 @@ public class Bullet : MonoBehaviour
     private void Update()
     {
         Movement();
+        //LookAtPlayer();
     }
 
     private void Movement()
@@ -23,6 +25,10 @@ public class Bullet : MonoBehaviour
         transform.position += direction * (speed * Time.deltaTime);
     }
 
+    // private void LookAtPlayer()
+    // {
+    //     _bulletSprite.transform.LookAt(Player.instance.transform.position);
+    // }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -32,6 +38,7 @@ public class Bullet : MonoBehaviour
             {
                 other.gameObject.GetComponent<Character>().OnHit(damage);
             }
+            Instantiate(_bulletParticle, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }

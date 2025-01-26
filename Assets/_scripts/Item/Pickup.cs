@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(SphereCollider))]
@@ -7,8 +9,12 @@ public class Pickup : MonoBehaviour
     [SerializeField] private Stat _target;
     [SerializeField] private float _amount;
     
-    [Header("Type")] 
-    [SerializeField] private bool _isWeapon;
+    [Header("Idle Animation")]
+    [SerializeField] private float _posDeltaY;
+    [SerializeField] private float _posSpeed;
+    [SerializeField] [Range(1,20)] private float _rotSpeed;
+    
+    private const int ROT_SPEED_MULTIPLIER = 20;
     
     private SphereCollider _collider;
     
@@ -21,28 +27,22 @@ public class Pickup : MonoBehaviour
     {
         //Non deve rompere il cazzo al movimento di nessuno
         _collider.isTrigger = true;
+        StartCoroutine(Idle());
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (_isWeapon)
-        {
-            PickupWeapon(other);
-            return;
-        }
+        // if (_isWeapon)
+        // {
+        //     PickupWeapon(other);
+        //     return;
+        // }
         PickupItem(other);
     }
 
-    private void PickupWeapon(Collider coll)
-    {
-        if (coll.gameObject.CompareTag("Player"))
-        {
-            //Do weapon stuff
-            Destroy(gameObject);
-        }
-    }
 
-    private void PickupItem(Collider coll)
+    
+    public void PickupItem(Collider coll)
     {
         if (coll.gameObject.CompareTag("Player"))
         {
@@ -50,4 +50,41 @@ public class Pickup : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    private IEnumerator Idle()
+    {
+        float currentPosY = 0;
+        bool animDirection = false;
+        while (true)
+        {
+            transform.Rotate(Vector3.up * (_rotSpeed * Time.deltaTime * ROT_SPEED_MULTIPLIER));
+            if (!animDirection)
+            {
+                transform.localPosition+= Vector3.up * (_posSpeed * Time.deltaTime);
+                currentPosY += _posSpeed * Time.deltaTime;
+                if (currentPosY >= _posDeltaY)
+                {
+                    animDirection = true;
+                }
+            }
+            else
+            {
+                transform.localPosition-= Vector3.up * (_posSpeed * Time.deltaTime);
+                currentPosY -= _posSpeed * Time.deltaTime;
+                if (currentPosY <= 0)
+                {
+                    animDirection = false;
+                }
+            }
+            yield return null;
+        }
+    }
+    // private void PickupWeapon(Collider coll)
+    // {
+    //     if (coll.gameObject.CompareTag("Player"))
+    //     {
+    //         //Do weapon stuff
+    //         Destroy(gameObject);
+    //     }
+    // }
 }
