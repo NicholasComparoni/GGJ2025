@@ -36,6 +36,10 @@ PrefabInstance:
       propertyPath: _stopDistance
       value: 2.5
       objectReference: {fileID: 0}
+    - target: {fileID: 508989970831382541, guid: edb67bf3721c0bd4fab60bb612dc6eb6, type: 3}
+      propertyPath: _chaseDistance
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 774731622463650332, guid: edb67bf3721c0bd4fab60bb612dc6eb6, type: 3}
       propertyPath: m_Sprite
       value: 
