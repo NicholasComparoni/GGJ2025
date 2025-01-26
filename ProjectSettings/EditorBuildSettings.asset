@@ -12,8 +12,8 @@ EditorBuildSettings:
     path: Assets/Scenes/SplashArtSlideShow.unity
     guid: e2eed163a74d4864885ed052ce48bea7
   - enabled: 1
-    path: Assets/Scenes/MainScene.unity
-    guid: 1aedcf5d108939d4cb33d4eb0cc4e8ee
+    path: Assets/tryouts scenes/1st_level_FInale.unity
+    guid: fe0fa750a7d0a92498a294627aa28f5f
   - enabled: 1
     path: Assets/Scenes/GameOver.unity
     guid: ca75881e37e861d4e95b85713f11dfb6

@@ -51,7 +51,8 @@ public class Player : Character
         _bodyCollisionIdentifier = GetComponent<CapsuleCollider>();
         _eyesCamera = GetComponentInChildren<Camera>();
         _bulletSpawnPoint = GetComponentInChildren<MuzzlePosition>();
-        ammo = maxAmmoQuantity;
+        
+        HealthChanged?.Invoke(_health);
         
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Locked;
