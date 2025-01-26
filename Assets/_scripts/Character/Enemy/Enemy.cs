@@ -1,5 +1,4 @@
 using System.Collections;
-using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -10,6 +9,7 @@ public class Enemy : Character
     [SerializeField] private float _acceleration;
     [Header("Enemy")] [SerializeField] private float _chaseDistance;
     [SerializeField] private float _blindChaseTime = 1f;
+    [SerializeField] private float _atkRange;
     [SerializeField] private bool isWall;
 
     [SerializeField] private Transform _bulletSpawnPoint;
@@ -36,7 +36,7 @@ public class Enemy : Character
 
     public void Shoot()
     {
-        if (elapsedTime >= _fireRate)
+        if (elapsedTime >= _fireRate && _atkRange >= Vector3.Distance(transform.position, Player.instance.transform.position))
         {
             _animator.SetTrigger("Attack");
             var instanceOfBullet =
@@ -116,10 +116,5 @@ public class Enemy : Character
         {
             Die();
         }
-    }
-
-    private void Attack()
-    {
-        Shoot();
     }
 }
