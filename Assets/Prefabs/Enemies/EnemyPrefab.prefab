@@ -187,13 +187,12 @@ MonoBehaviour:
   _movementSpeed: 3
   _fireRate: 10
   _atkDamage: 1
-  elapsedTime: 0
   _bulletPrefab: {fileID: 0}
   _stopDistance: 5
   _acceleration: 20
   _chaseDistance: 10
   _blindChaseTime: 1
-  _attackRange: 5
+  _bulletSpawnPoint: {fileID: 2398259677119632794}
 --- !u!195 &5443779584733727699
 NavMeshAgent:
   m_ObjectHideFlags: 0
