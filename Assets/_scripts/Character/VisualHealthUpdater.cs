@@ -12,6 +12,7 @@ public class VisualHealthUpdater : MonoBehaviour
     [SerializeField] private Texture _fullHealthTexture;
     [SerializeField] private Texture _halfHealthTexture;
     [SerializeField] private Texture _lowHealthTexture;
+    [SerializeField] private Texture _singleHPLeft;
     Texture textureToApply = null; 
     private void Start()
     {
@@ -27,8 +28,11 @@ public class VisualHealthUpdater : MonoBehaviour
 
     private void OnPlayerHealthChanged(int newHealth)
     {
-        
-        
+
+        if (newHealth == 1)
+        {
+            textureToApply = _singleHPLeft;
+        }
         if ( newHealth >= _maxHealthPlayer / 4) 
         {
             textureToApply = _lowHealthTexture;
