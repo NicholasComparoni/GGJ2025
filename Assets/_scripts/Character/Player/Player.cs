@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
 
@@ -71,6 +72,10 @@ public class Player : Character
         }
         _manager.UpdateCameraRotation();
         _manager.CallShoot();
+        if (_health <= 0)
+        {
+            OnDeath();
+        }
     }
 
     public void Movement(float vertical, float horizontal)
@@ -135,6 +140,10 @@ public class Player : Character
         }
     }
 
+    private void OnDeath()
+    {
+        SceneManager.LoadScene("GameOver");
+    }
     public override void OnHit(int damage)
     {
          base.OnHit(damage);
