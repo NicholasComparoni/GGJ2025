@@ -37,7 +37,10 @@ public class Character : MonoBehaviour
     public virtual void OnHit(int damage)
     {
         _health -= damage;
-        Player.HealthChanged.Invoke(_health);
+        if (this is Player) 
+        {
+            Player.HealthChanged?.Invoke(_health);
+        }
         Debug.Log("Preso " + damage + " da bullet, mi rimane " + _health);
     }
 
