@@ -7,7 +7,7 @@ public class Bullet : MonoBehaviour
     public Vector3 direction;
     [SerializeField] private float lifeTime;
     [SerializeField] private GameObject _bulletParticle;
-
+    [SerializeField] private bool isPlayer;
 
     private void Start()
     {
@@ -25,21 +25,33 @@ public class Bullet : MonoBehaviour
         transform.position += direction * (speed * Time.deltaTime);
     }
 
-    // private void LookAtPlayer()
-    // {
-    //     _bulletSprite.transform.LookAt(Player.instance.transform.position);
-    // }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.gameObject.CompareTag("Player"))
+        if (isPlayer)
         {
-            if (other.gameObject.GetComponent<Character>())
+            if (!other.gameObject.CompareTag("Player"))
             {
-                other.gameObject.GetComponent<Character>().OnHit(damage);
+                if (other.gameObject.GetComponent<Character>())
+                {
+                    other.gameObject.GetComponent<Character>().OnHit(damage);
+                }
+                Instantiate(_bulletParticle, transform.position, Quaternion.identity);
+                Destroy(gameObject);
             }
-            Instantiate(_bulletParticle, transform.position, Quaternion.identity);
-            Destroy(gameObject);
         }
+        else
+        {
+            if (!other.gameObject.CompareTag("Enemy"))
+            {
+                if (other.gameObject.GetComponent<Character>())
+                {
+                    other.gameObject.GetComponent<Character>().OnHit(damage);
+                }
+                Instantiate(_bulletParticle, transform.position, Quaternion.identity);
+                Destroy(gameObject);
+            }
+        }
+
     }
 }

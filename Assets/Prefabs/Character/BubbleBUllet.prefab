@@ -5291,6 +5291,7 @@ MonoBehaviour:
   direction: {x: 0, y: 0, z: 0}
   lifeTime: 4
   _bulletParticle: {fileID: 6966428949558204761, guid: ec0a0d3f0176cc545bdce2ed2adee6c1, type: 3}
+  isPlayer: 1
 --- !u!135 &2031966560464732131
 SphereCollider:
   m_ObjectHideFlags: 0
