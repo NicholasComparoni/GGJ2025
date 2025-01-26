@@ -6,81 +6,89 @@ using UnityEngine.SceneManagement;
 
 public class slideshow1 : MonoBehaviour
 {
-    
-    public Texture[] imageArray; 
-    private int currentImage;
-        
+    public GameObject[] imageArray;
+    private int currentImage = 0;
+
     float deltaTime = 0.0f;
- 
+
     public float timer1 = 5.0f;
     public float timer1Remaining = 5.0f;
     public bool timer1IsRunning = true;
     public string timer1Text;
-    
-    void OnGUI()
+
+    public void showImage()
     {
-        
-        int w = Screen.width, h = Screen.height;
-        
-        Rect imageRect = new Rect(0, 0, Screen.width, Screen.height);
-        
+        foreach (GameObject image in imageArray)
+        {
+            image.SetActive(false);
+        }
 
-        GUI.DrawTexture(imageRect, imageArray[currentImage]);
-
-        if(currentImage >= imageArray.Length)
-            currentImage = 0;
+        if (currentImage >= 0 && currentImage < imageArray.Length)
+        {
+            imageArray[currentImage].SetActive(true);
+        }
     }
- 
+
     void Start()
     {
         currentImage = 0;
-        bool timer1IsRunning = true;
+        timer1IsRunning = true;
         timer1Remaining = timer1;
-     }
- 
+        showImage();
+    }
+
     void Update()
     {
-        Cursor.visible= false;
+        Cursor.visible = false;
         Screen.lockCursor = true;
-                
+
         deltaTime += (Time.unscaledDeltaTime - deltaTime) * 0.1f;
-            
-            if (Input.GetMouseButtonDown(0))
+
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            currentImage++;
+            if (currentImage >= imageArray.Length)
             {
-                    currentImage++;
-        
-                if(currentImage >= imageArray.Length)
-                    currentImage = 0;
+                SceneManager.LoadScene(2);
+                return;
             }
 
-            if (Input.GetKey(KeyCode.Space))
+            showImage();
+        }
+
+
+        if (Input.GetKey(KeyCode.Space))
+        {
+            currentImage++;
+            if (currentImage >= imageArray.Length)
+            {
+                SceneManager.LoadScene(2);
+                return;
+            }
+
+            showImage();
+        }
+
+
+        if (timer1IsRunning)
+        {
+            if (timer1Remaining > 0)
+            {
+                timer1Remaining -= Time.deltaTime;
+            }
+            else
             {
                 currentImage++;
-
                 if (currentImage >= imageArray.Length)
+                {
                     SceneManager.LoadScene(2);
-            }
+                    return;
+                }
 
-            if (timer1IsRunning)
-             
-            {
-                if (timer1Remaining > 0)
-                {
-                    timer1Remaining -= Time.deltaTime;
-                    
-                }
-            
-                else
-                {
-                
-                    currentImage++;
-        
-                    if(currentImage >= imageArray.Length)
-                        SceneManager.LoadScene(2);
-                
-                    timer1Remaining = timer1;
-                }
+                showImage();
+                timer1Remaining = timer1;
             }
-        
+        }
     }
 }

@@ -44,7 +44,7 @@ public class Player : Character
         audioSource = GetComponent<AudioSource>();
     }
 
-    private void Start()
+    public void Start()
     {
         _manager = new(this);
         _rb = GetComponent<Rigidbody>();
