@@ -1,4 +1,7 @@
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+
 
 [RequireComponent(typeof(AudioSource))]
 public class OldGuysSounds : MonoBehaviour
@@ -10,7 +13,7 @@ public class OldGuysSounds : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
         int randomNumber = UnityEngine.Random.Range(0, clips.Length);
-        audioSource.clip = clips[randomNumber];
+        audioSource.PlayOneShot(clips[randomNumber]);
         Destroy(this, 5f);
     }
 

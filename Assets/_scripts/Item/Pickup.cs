@@ -1,9 +1,10 @@
 using System;
 using System.Collections;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(SphereCollider))]
+[RequireComponent(typeof(SphereCollider))][RequireComponent(typeof(AudioSource))]
 public class Pickup : MonoBehaviour
 {
     [Header("Stats Modifiers")] [SerializeField]
@@ -18,7 +19,6 @@ public class Pickup : MonoBehaviour
     [SerializeField] [Range(1, 20)] private float _rotSpeed;
 
     [Header("Pickup Feedbacks")] 
-    //[SerializeField] private GameObject feedbacks;
 
     [SerializeField] private GameObject _ammoFeedback;
     [SerializeField] private GameObject _healthFeedback;
@@ -26,10 +26,13 @@ public class Pickup : MonoBehaviour
     private const int ROT_SPEED_MULTIPLIER = 20;
 
     private SphereCollider _collider;
+    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private AudioClip _pickupSound;
 
     private void Awake()
     {
         _collider = GetComponent<SphereCollider>();
+        _audioSource = GetComponent<AudioSource>();
 
     }
 
@@ -55,6 +58,9 @@ public class Pickup : MonoBehaviour
 
     private void PickupItem(Collider coll)
     {
+        _audioSource.clip = _pickupSound;
+        _audioSource.PlayOneShot(_pickupSound);
+        Debug.Log("Faccio suono");
         if (coll.gameObject.CompareTag("Player"))
         {
             var feedbackHandler = coll.GetComponent<PickupFeedbackHandler>();
@@ -65,8 +71,9 @@ public class Pickup : MonoBehaviour
                 else if (_target == Stat.AMMO)
                     feedbackHandler.ShowFeedback(_ammoFeedback);
             }
-
-            Destroy(gameObject);
+            
+            gameObject.GetComponentInChildren<SpriteRenderer>().enabled = false;
+            Destroy(this.gameObject, 1f);
         }
     }
 
